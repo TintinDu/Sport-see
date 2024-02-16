@@ -1,6 +1,6 @@
-import sportSee from "/sportSee.svg";
 import "./App.css";
 import { test } from "./api";
+import { NavBar } from "./components/NavBar/NavBar";
 
 const user = await test();
 
@@ -9,9 +9,7 @@ console.log(user);
 export function App() {
   return (
     <>
-      <h1 className="logo">
-        <img src={sportSee} alt="Logo SportSee" />
-      </h1>
+      <NavBar />
       <h2>Bonjour {user.data.data.userInfos.firstName}</h2>
     </>
   );
