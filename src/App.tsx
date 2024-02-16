@@ -1,8 +1,8 @@
 import "./App.css";
-import { test } from "./api";
+import userService from "./services";
 import { NavBar } from "./components/NavBar/NavBar";
 
-const user = await test();
+const user = await userService.test();
 
 console.log(user);
 
