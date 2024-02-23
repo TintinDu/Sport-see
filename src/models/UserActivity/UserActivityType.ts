@@ -1,5 +1,5 @@
 export type SessionType = {
-  date: string;
+  day: string;
   kilogram: number;
   calories: number;
 };
