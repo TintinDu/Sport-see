@@ -1,34 +1,41 @@
 import axios from "axios";
+import UserMainData from "../models/UserMainData/UserMainData";
+import { mockData } from "../__mock__/data";
 
-// faire une condition pour basculer de données réelles aux données mockées
-// variable d'environnement
+const isDevelopment = process.env.NODE_ENV === "development";
 
-// instanciation de chacune des classes
-
-const test = async () => {
+const getUserMainData = (userId: number) => {
   try {
-    const response = await axios.get(`http://localhost:3000/user/12`);
+    if (isDevelopment) {
+      const userData = mockData.USER_MAIN_DATA.find(({ id }) => id === userId);
+      const userMainData = userData ? new UserMainData(userData) : null;
+      return userMainData;
+    }
+    // let userMainData;
+    // const response = await axios.get(`http://localhost:3000/user/${userId}`);
 
-    return response.data;
+    // if ("data" in response) {
+    //   userMainData = response.data;
+    // } else {
+    //   // Handle the case where the response is already the user main data
+    //   userMainData = response;
+    // }
+    // return userMainData;
   } catch (error) {
-    console.log(error);
+    console.error("Error fetching user main data:", error);
   }
 };
-const getUserMainData = (userId: string) => {
-  return axios.get(`http://localhost:3000/user/${userId}`);
-};
-const getUserActivity = (userId: string) => {
+const getUserActivity = (userId: number) => {
   return axios.get(`http://localhost:3000/user/${userId}/activity`);
 };
-const getUserAverageSessions = (userId: string) => {
+const getUserAverageSessions = (userId: number) => {
   return axios.get(`http://localhost:3000/user/${userId}/average-sessions`);
 };
-const getUserPerformance = (userId: string) => {
+const getUserPerformance = (userId: number) => {
   return axios.get(`http://localhost:3000/user/${userId}/performance`);
 };
 
 export const UserService = {
-  test,
   getUserMainData,
   getUserActivity,
   getUserAverageSessions,
