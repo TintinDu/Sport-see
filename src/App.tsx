@@ -12,8 +12,8 @@ export function App() {
     return (
       <>
         <h2>
-          Oups un problème est survenu lors de votre authentification. Veuillez
-          vous reconnecter.
+          Un problème est survenu lors de votre authentification. Veuillez vous
+          reconnecter.
         </h2>
       </>
     );
