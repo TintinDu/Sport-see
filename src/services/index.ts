@@ -34,5 +34,3 @@ export const UserService = {
   getUserAverageSessions,
   getUserPerformance,
 };
-
-export default UserService;
