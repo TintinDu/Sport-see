@@ -1,4 +1,4 @@
-import logo from "/public/logo.svg";
+import logo from "/logo.svg";
 import styled from "styled-components";
 
 const Header = styled.h1`

@@ -2,33 +2,27 @@
  * class UserPerformance - data modeling
  */
 
-type DataType = {
-  value: number;
-  kind: number;
-};
-type KindType = {
-  1: string;
-  2: string;
-  3: string;
-  4: string;
-  5: string;
-  6: string;
-};
-
-type UserPerformanceType = {
-  kind: KindType;
-  data: DataType[];
-};
+import { DataType, KindType, UserPerformanceType } from "./UserPerformanceType";
 
 class UserPerformance implements UserPerformanceType {
+  private readonly _userId: number;
   private readonly _data: DataType[];
   private readonly _kind: KindType;
   /**
    * @param {object} data - The data value.
    */
   constructor(data: UserPerformanceType) {
+    this._userId = data.userId;
     this._data = data.data;
     this._kind = data.kind;
+  }
+
+  /**
+   * Get the userId value.
+   * @return {number} The _userId value
+   */
+  get userId(): number {
+    return this._userId;
   }
 
   /**
