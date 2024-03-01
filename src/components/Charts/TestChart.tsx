@@ -1,6 +1,7 @@
 import { UserActivityType } from "../../models/UserActivity/UserActivityType";
 import { UserAverageSessionsType } from "../../models/UserAverageSessions/UserAverageSessionsType";
 import { UserPerformanceType } from "../../models/UserPerformance/UserPerformanceType";
+import { UserPerformanceChart } from "./UserPerformanceChart";
 
 type ChartProps = {
   userActivity: UserActivityType | null | Promise<UserActivityType>;
@@ -9,6 +10,11 @@ type ChartProps = {
     | UserAverageSessionsType
     | null
     | Promise<UserAverageSessionsType>;
+};
+
+export type UserPerformanceFormattedData = {
+  subject: string;
+  A: number;
 };
 
 export const TestChart: React.FC<ChartProps> = ({
@@ -23,11 +29,19 @@ export const TestChart: React.FC<ChartProps> = ({
   ) {
     return <div>Chargement...</div>;
   }
+
+  const userPerformanceFormattedData:
+    | UserPerformanceFormattedData[]
+    | undefined = userPerformance?.data.map((item) => ({
+    subject: userPerformance?.kind[item.kind],
+    A: item.value,
+  }));
+
   return (
     <div>
-      {userActivity?.sessions.map((session) => (
-        <div key={session.calories}>{session.calories}</div>
-      ))}
+      {userPerformanceFormattedData && (
+        <UserPerformanceChart data={userPerformanceFormattedData} />
+      )}
     </div>
   );
 };
