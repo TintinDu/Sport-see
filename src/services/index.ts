@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios"; // Importez AxiosResponse
+import axios, { AxiosResponse } from "axios";
 import UserMainData from "../models/UserMainData/UserMainData";
 import { mockData } from "../__mock__/data";
 import UserActivity from "../models/UserActivity/UserActivity";
