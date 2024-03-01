@@ -1,11 +1,9 @@
 import styled from "styled-components";
 import { UserMainDataType } from "../../models/UserMainData/UserMainDataType";
-// import { AxiosResponse } from "axios";
 
-interface WelcomeMessageProps {
-  userMainData: UserMainDataType;
-  // | Promise<AxiosResponse<UserMainDataType, UserMainDataType>>;
-}
+type WelcomeMessageProps = {
+  userMainData: UserMainDataType | Promise<UserMainDataType>;
+};
 
 const Div = styled.div`
   display: flex;
@@ -15,6 +13,10 @@ const Div = styled.div`
 export const WelcomeMessage: React.FC<WelcomeMessageProps> = ({
   userMainData,
 }) => {
+  if (userMainData instanceof Promise) {
+    return <Div>Chargement...</Div>;
+  }
+
   return (
     <Div>
       <h2>Bonjour {userMainData.userInfos.firstName}</h2>

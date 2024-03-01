@@ -1,14 +1,57 @@
 import "./App.css";
+import { useEffect, useState } from "react";
 import { UserService } from "./services";
 import { NavBar } from "./components/NavBar/NavBar";
 import { WelcomeMessage } from "./components/WelcomeMessage.tsx/WelcomeMessage";
 import { SideBar } from "./components/SideBar/SideBar";
 import { Container } from "./components/Container/Container";
+import { TestChart } from "./components/Charts/TestChart";
+import { UserMainDataType } from "./models/UserMainData/UserMainDataType";
+import { UserPerformanceType } from "./models/UserPerformance/UserPerformanceType";
+import { UserAverageSessionsType } from "./models/UserAverageSessions/UserAverageSessionsType";
+import { UserActivityType } from "./models/UserActivity/UserActivityType";
 
 export function App() {
-  const userMainData = UserService.getUserMainData(12);
+  const [userData, setUserData] = useState<UserMainDataType | null>(null);
+  const [userPerformance, setUserPerformance] =
+    useState<UserPerformanceType | null>(null);
+  const [userAverageSessions, setUserAverageSessions] =
+    useState<UserAverageSessionsType | null>(null);
+  const [userActivity, setUserActivity] = useState<UserActivityType | null>(
+    null,
+  );
 
-  if (!userMainData) {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const mainData = await UserService.getUserMainData(12);
+        const performanceData = await UserService.getUserPerformance(12);
+        const averageSessionsData =
+          await UserService.getUserAverageSessions(12);
+        const activityData = await UserService.getUserActivity(12);
+
+        // Filtrer les valeurs indésirables avant de les définir
+        if (mainData !== undefined && mainData !== null) {
+          setUserData(mainData);
+        }
+        if (performanceData !== undefined && performanceData !== null) {
+          setUserPerformance(performanceData);
+        }
+        if (averageSessionsData !== undefined && averageSessionsData !== null) {
+          setUserAverageSessions(averageSessionsData);
+        }
+        if (activityData !== undefined && activityData !== null) {
+          setUserActivity(activityData);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (!userData) {
     return (
       <>
         <h2>
@@ -24,7 +67,12 @@ export function App() {
       <NavBar />
       <Container>
         <SideBar />
-        <WelcomeMessage userMainData={userMainData} />
+        <WelcomeMessage userMainData={userData} />
+        <TestChart
+          userPerformance={userPerformance}
+          userAverageSessions={userAverageSessions}
+          userActivity={userActivity}
+        />
       </Container>
     </>
   );
