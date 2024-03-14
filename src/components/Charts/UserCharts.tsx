@@ -39,7 +39,6 @@ export type UserScoreFormattedData = {
 
 const ChartContainer = styled.div`
   display: flex;
-  flex-direction: column;
 `;
 
 export const UserCharts: React.FC<ChartsProps> = ({
@@ -80,17 +79,12 @@ export const UserCharts: React.FC<ChartsProps> = ({
     { uv: userScore ?? 0 },
   ];
 
-  const Div = styled.div`
-    display: flex;
-    flex-direction: row;
-  `;
-
   return (
-    <ChartContainer>
+    <>
       {userActivityFormattedData && (
         <UserActivityChart data={userActivityFormattedData} />
       )}
-      <Div>
+      <ChartContainer>
         {userAverageSessionsFormattedData && (
           <UserAverageSessionsChart data={userAverageSessionsFormattedData} />
         )}
@@ -100,7 +94,7 @@ export const UserCharts: React.FC<ChartsProps> = ({
         {userScoreFormattedData && (
           <UserScoreChart data={userScoreFormattedData} />
         )}
-      </Div>
-    </ChartContainer>
+      </ChartContainer>
+    </>
   );
 };
