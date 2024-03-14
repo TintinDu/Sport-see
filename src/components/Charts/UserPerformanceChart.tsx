@@ -7,7 +7,6 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { UserPerformanceFormattedData } from "./UserCharts";
-// import styled from "styled-components";
 
 export function UserPerformanceChart({
   data,
@@ -15,7 +14,7 @@ export function UserPerformanceChart({
   data: UserPerformanceFormattedData[];
 }) {
   return (
-    <ResponsiveContainer width="100%" height={150} minWidth="258px">
+    <ResponsiveContainer width="100%" height={150}>
       <RadarChart
         cx="50%"
         cy="60%"

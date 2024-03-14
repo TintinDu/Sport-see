@@ -10,7 +10,6 @@ import {
   YAxis,
 } from "recharts";
 import { UserAverageSessionsFormattedData } from "./UserCharts";
-// import styled from "styled-components";
 
 export function UserAverageSessionsChart({
   data,
@@ -18,7 +17,7 @@ export function UserAverageSessionsChart({
   data: UserAverageSessionsFormattedData[];
 }) {
   return (
-    <ResponsiveContainer width="100%" height="100%">
+    <ResponsiveContainer width="100%" height={150}>
       <LineChart
         width={500}
         height={300}

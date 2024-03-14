@@ -81,6 +81,7 @@ export function UserPage() {
   const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
+    width: 85%;
   `;
 
   return (
@@ -96,8 +97,8 @@ export function UserPage() {
             userActivity={userActivity}
             userScore={userScore}
           />
-          <UserKeyData userKeyData={userKeyData} />
         </Wrapper>
+        <UserKeyData userKeyData={userKeyData} />
       </Container>
     </>
   );

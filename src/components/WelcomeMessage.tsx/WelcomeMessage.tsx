@@ -8,6 +8,7 @@ type WelcomeMessageProps = {
 const Div = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 2em;
 `;
 
 export const WelcomeMessage: React.FC<WelcomeMessageProps> = ({
