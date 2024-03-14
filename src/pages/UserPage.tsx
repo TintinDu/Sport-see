@@ -4,12 +4,17 @@ import { NavBar } from "../components/NavBar/NavBar";
 import { WelcomeMessage } from "../components/WelcomeMessage.tsx/WelcomeMessage";
 import { SideBar } from "../components/SideBar/SideBar";
 import { Container } from "../components/Container/Container";
-import { TestChart } from "../components/Charts/TestChart";
-import { UserMainDataType } from "../models/UserMainData/UserMainDataType";
+import { UserCharts } from "../components/Charts/UserCharts";
+import {
+  KeyDataType,
+  UserMainDataType,
+} from "../models/UserMainData/UserMainDataType";
 import { UserPerformanceType } from "../models/UserPerformance/UserPerformanceType";
 import { UserAverageSessionsType } from "../models/UserAverageSessions/UserAverageSessionsType";
 import { UserActivityType } from "../models/UserActivity/UserActivityType";
 import { useParams } from "react-router-dom";
+import styled from "styled-components";
+import { UserKeyData } from "../components/UserKeyData/UserKeyData";
 
 export function UserPage() {
   const { id } = useParams();
@@ -23,6 +28,10 @@ export function UserPage() {
   const [userActivity, setUserActivity] = useState<UserActivityType | null>(
     null,
   );
+  const [userScore, setUserScore] = useState<number | null | undefined>(null);
+  const [userKeyData, setUserKeyData] = useState<
+    KeyDataType | null | undefined
+  >(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,6 +45,10 @@ export function UserPage() {
         // Filtrer les valeurs indésirables avant de les définir
         if (mainData) {
           setUserData(mainData);
+          mainData.score
+            ? setUserScore(mainData.score)
+            : setUserScore(mainData.todayScore);
+          setUserKeyData(mainData.keyData);
         }
         if (performanceData) {
           setUserPerformance(performanceData);
@@ -65,17 +78,26 @@ export function UserPage() {
     );
   }
 
+  const Wrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+  `;
+
   return (
     <>
       <NavBar />
       <Container>
         <SideBar />
-        <WelcomeMessage userMainData={userData} />
-        <TestChart
-          userPerformance={userPerformance}
-          userAverageSessions={userAverageSessions}
-          userActivity={userActivity}
-        />
+        <Wrapper>
+          <WelcomeMessage userMainData={userData} />
+          <UserCharts
+            userPerformance={userPerformance}
+            userAverageSessions={userAverageSessions}
+            userActivity={userActivity}
+            userScore={userScore}
+          />
+          <UserKeyData userKeyData={userKeyData} />
+        </Wrapper>
       </Container>
     </>
   );
