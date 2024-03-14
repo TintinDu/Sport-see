@@ -6,17 +6,23 @@ import {
   RadarChart,
   ResponsiveContainer,
 } from "recharts";
-import { UserPerformanceFormattedData } from "./TestChart";
+import { UserPerformanceFormattedData } from "./UserCharts";
+// import styled from "styled-components";
 
 export function UserPerformanceChart({
   data,
 }: {
   data: UserPerformanceFormattedData[];
 }) {
-  console.log(data);
   return (
-    <ResponsiveContainer width="100%" height="100%" minWidth="258px">
-      <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
+    <ResponsiveContainer width="100%" height={150} minWidth="258px">
+      <RadarChart
+        cx="50%"
+        cy="60%"
+        outerRadius="80%"
+        data={data}
+        margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
+      >
         <PolarGrid />
         <PolarAngleAxis dataKey="subject" />
         <PolarRadiusAxis />
