@@ -14,7 +14,11 @@ export function UserPerformanceChart({
   data: UserPerformanceFormattedData[];
 }) {
   return (
-    <ResponsiveContainer width="100%" height={150}>
+    <ResponsiveContainer
+      width="100%"
+      height={150}
+      style={{ backgroundColor: "#282D30" }}
+    >
       <RadarChart
         cx="50%"
         cy="60%"
@@ -29,7 +33,7 @@ export function UserPerformanceChart({
           name="Mike"
           dataKey="A"
           stroke="#8884d8"
-          fill="#8884d8"
+          fill="#FF0101"
           fillOpacity={0.6}
         />
       </RadarChart>

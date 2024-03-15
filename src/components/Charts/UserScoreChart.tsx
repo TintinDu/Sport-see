@@ -1,17 +1,5 @@
-import {
-  Legend,
-  RadialBar,
-  RadialBarChart,
-  ResponsiveContainer,
-} from "recharts";
+import { RadialBar, RadialBarChart, ResponsiveContainer } from "recharts";
 import { UserScoreFormattedData } from "./UserCharts";
-
-const style = {
-  top: "50%",
-  right: 0,
-  transform: "translate(0, -50%)",
-  lineHeight: "24px",
-};
 
 export function UserScoreChart({ data }: { data: UserScoreFormattedData[] }) {
   return (
@@ -25,15 +13,12 @@ export function UserScoreChart({ data }: { data: UserScoreFormattedData[] }) {
         data={data}
       >
         <RadialBar
-          label={{ position: "insideStart", fill: "#fff" }}
-          background
+          fill="#FF0000"
+          label={{
+            position: "center",
+            fill: "black",
+          }}
           dataKey="uv"
-        />
-        <Legend
-          iconSize={10}
-          layout="vertical"
-          verticalAlign="middle"
-          wrapperStyle={style}
         />
       </RadialBarChart>
     </ResponsiveContainer>

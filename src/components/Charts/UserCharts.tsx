@@ -6,6 +6,8 @@ import { UserPerformanceChart } from "./UserPerformanceChart";
 import { UserActivityChart } from "./UserActivityChart";
 import { UserAverageSessionsChart } from "./UserAverageSessionsChart";
 import { UserScoreChart } from "./UserScoreChart";
+import { ActivityChartHeader } from "../Headers/ActivityChartHeader";
+import { userPerformanceKind } from "../../constants/userPerformance.constants";
 
 type ChartsProps = {
   userActivity: UserActivityType | null | Promise<UserActivityType>;
@@ -18,13 +20,13 @@ type ChartsProps = {
 };
 
 export type UserActivityFormattedData = {
-  name: string;
+  name: number;
   calories: number;
   kilograms: number;
 };
 
 export type UserAverageSessionsFormattedData = {
-  name: number;
+  name: string;
   pv: number;
 };
 
@@ -39,6 +41,7 @@ export type UserScoreFormattedData = {
 
 const ChartContainer = styled.div`
   display: flex;
+  padding: 2em 4em;
 `;
 
 export const UserCharts: React.FC<ChartsProps> = ({
@@ -56,22 +59,25 @@ export const UserCharts: React.FC<ChartsProps> = ({
   }
   const userActivityFormattedData: UserActivityFormattedData[] | undefined =
     userActivity?.sessions.map((session) => ({
-      name: session.day,
+      name: userActivity.sessions.indexOf(session) + 1,
       calories: session.calories,
       kilograms: session.kilogram,
     }));
 
+  const week = ["L", "M", "M", "J", "V", "S", "D"];
   const userAverageSessionsFormattedData:
     | UserAverageSessionsFormattedData[]
     | undefined = userAverageSessions?.sessions.map((session) => ({
-    name: session.day,
+    name: week[session.day - 1],
     pv: session.sessionLength,
   }));
 
   const userPerformanceFormattedData:
     | UserPerformanceFormattedData[]
     | undefined = userPerformance?.data.map((item) => ({
-    subject: userPerformance?.kind[item.kind],
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore - userPerformanceKind is a constant object
+    subject: userPerformanceKind[userPerformance?.kind[item.kind]],
     A: item.value,
   }));
 
@@ -81,6 +87,7 @@ export const UserCharts: React.FC<ChartsProps> = ({
 
   return (
     <>
+      <ActivityChartHeader />
       {userActivityFormattedData && (
         <UserActivityChart data={userActivityFormattedData} />
       )}
