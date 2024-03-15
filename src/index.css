@@ -20,3 +20,8 @@ a {
   color: white;
   text-decoration: none;
 }
+
+.recharts-responsive-container {
+  background-color: #fbfbfb;
+  margin: 1em;
+}

@@ -17,10 +17,10 @@ export function UserActivityChart({
   data: UserActivityFormattedData[];
 }) {
   return (
-    <ResponsiveContainer width="100%" height="100%">
+    <ResponsiveContainer width="100%" height={400}>
       <BarChart
-        width={500}
-        height={300}
+        width={10}
+        height={10}
         data={data}
         margin={{
           top: 5,
@@ -32,17 +32,29 @@ export function UserActivityChart({
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
         <YAxis />
-        <Tooltip />
+        <Tooltip
+          wrapperStyle={{ color: "#E60000" }}
+          contentStyle={{ backgroundColor: "#E60000" }}
+          itemStyle={{ color: "white" }}
+        />
         <Legend />
         <Bar
-          dataKey="calories"
-          fill="#8884d8"
-          activeBar={<Rectangle fill="pink" stroke="blue" />}
+          name={"Poids (kg)"}
+          legendType="circle"
+          dataKey="kilograms"
+          fill="#282D30"
+          activeBar={<Rectangle />}
+          barSize={10}
+          radius={[5, 5, 0, 0]}
         />
         <Bar
-          dataKey="kilograms"
-          fill="#82ca9d"
-          activeBar={<Rectangle fill="gold" stroke="purple" />}
+          name={"Calories brûlées (kCal)"}
+          legendType="circle"
+          dataKey="calories"
+          fill="#E60000"
+          activeBar={<Rectangle />}
+          barSize={10}
+          radius={[5, 5, 0, 0]}
         />
       </BarChart>
     </ResponsiveContainer>

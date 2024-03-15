@@ -1,6 +1,5 @@
 import {
   CartesianGrid,
-  Legend,
   Line,
   LineChart,
   ReferenceLine,
@@ -17,7 +16,11 @@ export function UserAverageSessionsChart({
   data: UserAverageSessionsFormattedData[];
 }) {
   return (
-    <ResponsiveContainer width="100%" height={150}>
+    <ResponsiveContainer
+      width="100%"
+      height={150}
+      style={{ backgroundColor: "red" }}
+    >
       <LineChart
         width={500}
         height={300}
@@ -29,14 +32,20 @@ export function UserAverageSessionsChart({
           bottom: 5,
         }}
       >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
+        <CartesianGrid strokeDasharray="3 3" opacity={0.5} />
+        <XAxis
+          dataKey="name"
+          label={{ value: "", fill: "white" }}
+          stroke="white"
+        />
+        <YAxis
+          label={{ value: "Durée moyenne des sessions", fill: "white" }}
+          stroke="white"
+        />
         <Tooltip />
-        <Legend />
-        <ReferenceLine x="3" stroke="red" label="Max PV PAGE" />
-        <ReferenceLine y={9800} label="Max" stroke="red" />
-        <Line type="monotone" dataKey="pv" stroke="#8884d8" />
+        <ReferenceLine x="3" stroke="white" />
+        <ReferenceLine y={9800} label="Max" stroke="white" />
+        <Line type="monotone" dataKey="pv" stroke="white" />
       </LineChart>
     </ResponsiveContainer>
   );
