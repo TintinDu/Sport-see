@@ -6,7 +6,6 @@ import { UserPerformanceChart } from "./UserPerformanceChart";
 import { UserActivityChart } from "./UserActivityChart";
 import { UserAverageSessionsChart } from "./UserAverageSessionsChart";
 import { UserScoreChart } from "./UserScoreChart";
-import { ActivityChartHeader } from "../Headers/ActivityChartHeader";
 import { userPerformanceKind } from "../../constants/userPerformance.constants";
 
 type ChartsProps = {
@@ -41,6 +40,7 @@ export type UserScoreFormattedData = {
 
 const ChartContainer = styled.div`
   display: flex;
+  justify-content: space-evenly;
   padding: 2em 4em;
 `;
 
@@ -87,7 +87,6 @@ export const UserCharts: React.FC<ChartsProps> = ({
 
   return (
     <>
-      <ActivityChartHeader />
       {userActivityFormattedData && (
         <UserActivityChart data={userActivityFormattedData} />
       )}

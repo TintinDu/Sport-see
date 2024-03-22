@@ -15,8 +15,8 @@ export function UserPerformanceChart({
 }) {
   return (
     <ResponsiveContainer
-      width="100%"
-      height={150}
+      width="99%"
+      height={400}
       style={{ backgroundColor: "#282D30" }}
     >
       <RadarChart
