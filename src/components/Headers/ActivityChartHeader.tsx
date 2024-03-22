@@ -1,24 +1,45 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import styled from "styled-components";
-
-const HeaderContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px;
-  background-color: #f2f2f2;
-`;
 
 const Title = styled.h1`
   font-size: 24px;
-  font-weight: bold;
+  font-weight: 400;
   color: #333333;
 `;
 
-export const ActivityChartHeader: React.FC = () => {
+const Div = styled.div`
+  display: flex;
+`;
+
+const Box = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+interface ActivityChartHeaderProps {
+  children?: ReactNode;
+  payload: { value: string }[];
+}
+
+export const ActivityChartHeader: React.FC<ActivityChartHeaderProps> = (
+  props,
+) => {
+  const { payload } = props;
+  console.log(payload);
   return (
-    <HeaderContainer>
-      <Title>Activité quotidienne</Title>
-    </HeaderContainer>
+    <>
+      <Box>
+        <Title>Activité quotidienne</Title>
+        <ul>
+          <Div>
+            {payload.map((entry, index: number) => (
+              <li style={{ margin: "0 1em" }} key={`item-${index}`}>
+                {entry.value}
+              </li>
+            ))}
+          </Div>
+        </ul>
+      </Box>
+    </>
   );
 };

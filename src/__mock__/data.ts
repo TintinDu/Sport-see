@@ -37,17 +37,17 @@ const USER_ACTIVITY = [
     sessions: [
       {
         day: "2020-07-01",
-        kilogram: 110,
+        kilogram: 70,
         calories: 240,
       },
       {
         day: "2020-07-02",
-        kilogram: 90,
+        kilogram: 72,
         calories: 220,
       },
       {
         day: "2020-07-03",
-        kilogram: 151,
+        kilogram: 75,
         calories: 280,
       },
       {
@@ -57,12 +57,12 @@ const USER_ACTIVITY = [
       },
       {
         day: "2020-07-05",
-        kilogram: 150,
+        kilogram: 71,
         calories: 160,
       },
       {
         day: "2020-07-06",
-        kilogram: 140,
+        kilogram: 70,
         calories: 162,
       },
       {
@@ -136,15 +136,15 @@ const USER_AVERAGE_SESSIONS = [
       },
       {
         day: 5,
-        sessionLength: 0,
+        sessionLength: 30,
       },
       {
         day: 6,
-        sessionLength: 0,
+        sessionLength: 35,
       },
       {
         day: 7,
-        sessionLength: 60,
+        sessionLength: 18,
       },
     ],
   },

@@ -10,8 +10,7 @@ const Nav = styled.nav`
   justify-content: center;
   color: white;
   background-color: black;
-  height: 100vh;
-  width: 10vh;
+  width: 117px;
 `;
 
 const Div = styled.div`

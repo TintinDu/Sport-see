@@ -3,7 +3,7 @@ import { UserScoreFormattedData } from "./UserCharts";
 
 export function UserScoreChart({ data }: { data: UserScoreFormattedData[] }) {
   return (
-    <ResponsiveContainer width="100%" height={150}>
+    <ResponsiveContainer width="99%" height={150}>
       <RadialBarChart
         cx="50%"
         cy="50%"

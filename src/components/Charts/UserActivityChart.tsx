@@ -10,6 +10,7 @@ import {
   YAxis,
 } from "recharts";
 import { UserActivityFormattedData } from "./UserCharts";
+import { ActivityChartHeader } from "../Headers/ActivityChartHeader";
 
 export function UserActivityChart({
   data,
@@ -17,28 +18,49 @@ export function UserActivityChart({
   data: UserActivityFormattedData[];
 }) {
   return (
-    <ResponsiveContainer width="100%" height={400}>
+    <ResponsiveContainer width="99%" height={400} style={{ padding: "2em" }}>
       <BarChart
-        width={10}
-        height={10}
         data={data}
         margin={{
-          top: 5,
-          right: 30,
-          left: 20,
+          top: 20,
           bottom: 5,
+          right: 0,
+          left: 0,
         }}
       >
-        <CartesianGrid strokeDasharray="3 3" />
+        <Legend
+          content={({ payload }) => {
+            if (payload) {
+              return <ActivityChartHeader payload={payload} />;
+            }
+            return "Données corrompues";
+          }}
+          wrapperStyle={{ top: "-35px" }}
+          verticalAlign="top"
+          align="right"
+        />
+        <CartesianGrid strokeDasharray="2 2" />
         <XAxis dataKey="name" />
-        <YAxis />
+        <YAxis
+          dataKey="kilograms"
+          orientation="right"
+          yAxisId="right"
+          domain={[60, 70]}
+        />
+        <YAxis
+          dataKey="calories"
+          orientation="left"
+          tick={false}
+          yAxisId="left"
+        />
         <Tooltip
           wrapperStyle={{ color: "#E60000" }}
           contentStyle={{ backgroundColor: "#E60000" }}
           itemStyle={{ color: "white" }}
         />
-        <Legend />
+
         <Bar
+          yAxisId="right"
           name={"Poids (kg)"}
           legendType="circle"
           dataKey="kilograms"
@@ -48,6 +70,7 @@ export function UserActivityChart({
           radius={[5, 5, 0, 0]}
         />
         <Bar
+          yAxisId="left"
           name={"Calories brûlées (kCal)"}
           legendType="circle"
           dataKey="calories"
