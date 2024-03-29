@@ -71,6 +71,16 @@ export const UserCharts: React.FC<ChartsProps> = ({
     pv: session.sessionLength,
   }));
 
+  // ajout de données fictives en début et fin du tableau pour le style
+  userAverageSessionsFormattedData?.push({
+    name: " ",
+    pv: 0,
+  });
+  userAverageSessionsFormattedData?.unshift({
+    name: " ",
+    pv: 0,
+  });
+
   const userPerformanceFormattedData:
     | UserPerformanceFormattedData[]
     | undefined = userPerformance?.data.map((item) => ({

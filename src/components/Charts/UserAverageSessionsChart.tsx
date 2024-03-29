@@ -43,8 +43,6 @@ export function UserAverageSessionsChart({
         data={data}
         margin={{
           top: 10,
-          right: 10,
-          left: 10,
           bottom: 10,
         }}
       >
@@ -64,6 +62,7 @@ export function UserAverageSessionsChart({
           tick={{ fill: "#FFF", opacity: 0.5 }}
           axisLine={false}
           tickLine={false}
+          tickMargin={15}
         />
         <Tooltip
           contentStyle={{
@@ -84,12 +83,13 @@ export function UserAverageSessionsChart({
           cursor={{
             stroke: "black",
             strokeOpacity: 0.2,
-            strokeWidth: 30,
+            strokeWidth: 120,
+            style: { height: 100000 },
           }}
         />
         <Line
           dot={false}
-          type="monotone"
+          type="natural"
           dataKey="pv"
           stroke="white"
           strokeWidth={2}

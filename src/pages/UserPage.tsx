@@ -34,37 +34,27 @@ export function UserPage() {
   >(null);
 
   useEffect(() => {
-    const fetchData = async () => {
+    (async () => {
       try {
-        const mainData = await UserService.getUserMainData(userId);
-        const performanceData = await UserService.getUserPerformance(userId);
-        const averageSessionsData =
-          await UserService.getUserAverageSessions(userId);
-        const activityData = await UserService.getUserActivity(userId);
+        const [mainData, performanceData, averageSessionsData, activityData] =
+          await Promise.all([
+            UserService.getUserMainData(userId),
+            UserService.getUserPerformance(userId),
+            UserService.getUserAverageSessions(userId),
+            UserService.getUserActivity(userId),
+          ]);
 
         // Filtrer les valeurs indésirables avant de les définir
-        if (mainData) {
-          setUserData(mainData);
-          mainData.score
-            ? setUserScore(mainData.score)
-            : setUserScore(mainData.todayScore);
-          setUserKeyData(mainData.keyData);
-        }
-        if (performanceData) {
-          setUserPerformance(performanceData);
-        }
-        if (averageSessionsData) {
-          setUserAverageSessions(averageSessionsData);
-        }
-        if (activityData) {
-          setUserActivity(activityData);
-        }
+        setUserData(mainData || null);
+        setUserScore(mainData?.score || mainData?.todayScore || null);
+        setUserKeyData(mainData?.keyData || null);
+        setUserPerformance(performanceData || null);
+        setUserAverageSessions(averageSessionsData || null);
+        setUserActivity(activityData || null);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
-    };
-
-    fetchData();
+    })();
   }, [userId]);
 
   if (!userData) {

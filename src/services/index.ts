@@ -34,11 +34,11 @@ const getUserActivity = async (
 ): Promise<UserActivityType | null> => {
   try {
     if (isDevelopment) {
-      const UserActivityData = mockData.USER_ACTIVITY.find(
+      const userActivityData = mockData.USER_ACTIVITY.find(
         (data) => data.userId === userId,
       );
-      const userActivity = UserActivityData
-        ? new UserActivity(UserActivityData)
+      const userActivity = userActivityData
+        ? new UserActivity(userActivityData)
         : null;
       return userActivity;
     }
