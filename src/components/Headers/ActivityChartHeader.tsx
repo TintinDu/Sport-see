@@ -25,7 +25,6 @@ export const ActivityChartHeader: React.FC<ActivityChartHeaderProps> = (
   props,
 ) => {
   const { payload } = props;
-  console.log(payload);
   return (
     <>
       <Box>
