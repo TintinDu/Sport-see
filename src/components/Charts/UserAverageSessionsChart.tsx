@@ -1,4 +1,11 @@
-import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis } from "recharts";
+import {
+  Legend,
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+} from "recharts";
 import { UserAverageSessionsFormattedData } from "./UserCharts";
 import styled from "styled-components";
 
@@ -13,6 +20,7 @@ export function UserAverageSessionsChart({
     font-size: 15px;
     font-weight: 400;
     padding: 1em 2em;
+    width: 80%;
   `;
 
   const WhiteTooltip = styled.div`
@@ -25,64 +33,69 @@ export function UserAverageSessionsChart({
     font-size: 10px;
   `;
 
-  console.log(data);
   return (
     <ResponsiveContainer
       width="99%"
+      height={260}
       style={{ backgroundColor: "red", borderRadius: "5px" }}
     >
-      <>
-        <AverageSessionsChartHeader>
-          Durée moyenne des sessions
-        </AverageSessionsChartHeader>
-        <LineChart
-          width={450}
-          height={200}
-          data={data}
-          margin={{
-            right: 50,
-            left: 10,
-            bottom: 10,
+      <LineChart
+        data={data}
+        margin={{
+          top: 10,
+          right: 10,
+          left: 10,
+          bottom: 10,
+        }}
+      >
+        <Legend
+          wrapperStyle={{ width: "75%" }}
+          content={() => {
+            return (
+              <AverageSessionsChartHeader>
+                Durée moyenne des sessions
+              </AverageSessionsChartHeader>
+            );
           }}
-        >
-          <XAxis
-            dataKey="name"
-            tick={{ fill: "#FFF", opacity: 0.5 }}
-            axisLine={false}
-            tickLine={false}
-          />
-          <Tooltip
-            contentStyle={{
-              backgroundColor: "#fff",
-              textAlign: "center",
-              fontSize: "10px",
-            }}
-            content={({ payload }) => {
-              if (payload) {
-                return (
-                  <WhiteTooltip>
-                    <ToolTipContent>{payload[0]?.value} min</ToolTipContent>
-                  </WhiteTooltip>
-                );
-              }
-              return "Données corrompues";
-            }}
-            cursor={{
-              stroke: "black",
-              strokeOpacity: 0.2,
-              strokeWidth: 30,
-            }}
-          />
-          <Line
-            dot={false}
-            type="monotone"
-            dataKey="pv"
-            stroke="white"
-            strokeWidth={2}
-            opacity={0.5}
-          />
-        </LineChart>
-      </>
+          verticalAlign="top"
+        />
+        <XAxis
+          dataKey="name"
+          tick={{ fill: "#FFF", opacity: 0.5 }}
+          axisLine={false}
+          tickLine={false}
+        />
+        <Tooltip
+          contentStyle={{
+            backgroundColor: "#fff",
+            textAlign: "center",
+            fontSize: "10px",
+          }}
+          content={({ payload }) => {
+            if (payload) {
+              return (
+                <WhiteTooltip>
+                  <ToolTipContent>{payload[0]?.value} min</ToolTipContent>
+                </WhiteTooltip>
+              );
+            }
+            return "Données corrompues";
+          }}
+          cursor={{
+            stroke: "black",
+            strokeOpacity: 0.2,
+            strokeWidth: 30,
+          }}
+        />
+        <Line
+          dot={false}
+          type="monotone"
+          dataKey="pv"
+          stroke="white"
+          strokeWidth={2}
+          opacity={0.5}
+        />
+      </LineChart>
     </ResponsiveContainer>
   );
 }

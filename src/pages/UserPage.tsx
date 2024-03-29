@@ -82,6 +82,7 @@ export function UserPage() {
     display: flex;
     flex-direction: column;
     width: 85%;
+    padding: 1em;
   `;
 
   return (

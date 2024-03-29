@@ -35,13 +35,12 @@ export type UserPerformanceFormattedData = {
 };
 
 export type UserScoreFormattedData = {
-  uv: number;
+  value: number;
 };
 
 const ChartContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
-  padding: 2em 4em;
 `;
 
 export const UserCharts: React.FC<ChartsProps> = ({
@@ -81,9 +80,15 @@ export const UserCharts: React.FC<ChartsProps> = ({
     A: item.value,
   }));
 
-  const userScoreFormattedData: UserScoreFormattedData[] | undefined = [
-    { uv: userScore ?? 0 },
-  ];
+  const getUserScoreFormattedData = () => {
+    if (userScore) {
+      return [{ value: userScore * 100 }];
+    }
+    return [{ value: 0 }];
+  };
+
+  const userScoreFormattedData: UserScoreFormattedData[] =
+    getUserScoreFormattedData();
 
   return (
     <>
