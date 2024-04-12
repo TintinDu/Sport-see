@@ -14,7 +14,6 @@ import { UserAverageSessionsType } from "../models/UserAverageSessions/UserAvera
 import { UserActivityType } from "../models/UserActivity/UserActivityType";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { UserKeyData } from "../components/UserKeyData/UserKeyData";
 
 export function UserPage() {
   const { id } = useParams();
@@ -71,7 +70,6 @@ export function UserPage() {
   const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
-    width: 85%;
     padding: 1em;
   `;
 
@@ -83,13 +81,13 @@ export function UserPage() {
         <Wrapper>
           <WelcomeMessage userMainData={userData} />
           <UserCharts
+            userKeyData={userKeyData}
             userPerformance={userPerformance}
             userAverageSessions={userAverageSessions}
             userActivity={userActivity}
             userScore={userScore}
           />
         </Wrapper>
-        <UserKeyData userKeyData={userKeyData} />
       </Container>
     </>
   );

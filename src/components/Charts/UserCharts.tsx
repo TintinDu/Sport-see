@@ -7,9 +7,12 @@ import { UserActivityChart } from "./UserActivityChart";
 import { UserAverageSessionsChart } from "./UserAverageSessionsChart";
 import { UserScoreChart } from "./UserScoreChart";
 import { userPerformanceKind } from "../../constants/userPerformance.constants";
+import { UserKeyData } from "../UserKeyData/UserKeyData";
+import { KeyDataType } from "../../models/UserMainData/UserMainDataType";
 
 type ChartsProps = {
   userActivity: UserActivityType | null | Promise<UserActivityType>;
+  userKeyData: KeyDataType | null | undefined;
   userPerformance: UserPerformanceType | null | Promise<UserPerformanceType>;
   userAverageSessions:
     | UserAverageSessionsType
@@ -43,13 +46,19 @@ const ChartContainer = styled.div`
   justify-content: space-evenly;
 `;
 
+const KeyDataContainer = styled.div`
+  display: flex;
+`;
+
 export const UserCharts: React.FC<ChartsProps> = ({
   userActivity,
   userAverageSessions,
   userPerformance,
   userScore,
+  userKeyData,
 }) => {
   if (
+    userKeyData instanceof Promise ||
     userActivity instanceof Promise ||
     userPerformance instanceof Promise ||
     userAverageSessions instanceof Promise
@@ -101,21 +110,24 @@ export const UserCharts: React.FC<ChartsProps> = ({
     getUserScoreFormattedData();
 
   return (
-    <>
-      {userActivityFormattedData && (
-        <UserActivityChart data={userActivityFormattedData} />
-      )}
-      <ChartContainer>
-        {userAverageSessionsFormattedData && (
-          <UserAverageSessionsChart data={userAverageSessionsFormattedData} />
+    <KeyDataContainer>
+      <div>
+        {userActivityFormattedData && (
+          <UserActivityChart data={userActivityFormattedData} />
         )}
-        {userPerformanceFormattedData && (
-          <UserPerformanceChart data={userPerformanceFormattedData} />
-        )}
-        {userScoreFormattedData && (
-          <UserScoreChart data={userScoreFormattedData} />
-        )}
-      </ChartContainer>
-    </>
+        <ChartContainer>
+          {userAverageSessionsFormattedData && (
+            <UserAverageSessionsChart data={userAverageSessionsFormattedData} />
+          )}
+          {userPerformanceFormattedData && (
+            <UserPerformanceChart data={userPerformanceFormattedData} />
+          )}
+          {userScoreFormattedData && (
+            <UserScoreChart data={userScoreFormattedData} />
+          )}
+        </ChartContainer>
+      </div>
+      <UserKeyData userKeyData={userKeyData} />
+    </KeyDataContainer>
   );
 };

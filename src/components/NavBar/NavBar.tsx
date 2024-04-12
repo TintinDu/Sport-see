@@ -1,5 +1,6 @@
 import { Logo } from "../Logo/Logo";
 import styled from "styled-components";
+import { NavLink } from "../NavLink/NavLink";
 
 const Nav = styled.nav`
   display: flex;
@@ -12,9 +13,9 @@ const Nav = styled.nav`
 export const NavBar = () => (
   <Nav>
     <Logo />
-    <a href="">Accueil</a>
-    <a href="">Profil</a>
-    <a href="">Réglage</a>
-    <a href="">Communauté</a>
+    <NavLink linkName="Accueil" />
+    <NavLink linkName="Profil" />
+    <NavLink linkName="Réglage" />
+    <NavLink linkName="Communauté" />
   </Nav>
 );
