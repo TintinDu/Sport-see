@@ -8,7 +8,22 @@ type WelcomeMessageProps = {
 const Div = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 2em;
+  padding-left: 6em;
+`;
+
+const WelcomeHeader = styled.h2`
+  font-size: 3em;
+`;
+
+const SpanHeader = styled.span`
+  color: red;
+`;
+
+const CongratulationsHeader = styled.h3`
+  margin: 1.8em 0;
+  font-weight: 500;
+  font-size: 1.1em;
+  letter-spacing: 0.2px;
 `;
 
 export const WelcomeMessage: React.FC<WelcomeMessageProps> = ({
@@ -20,8 +35,12 @@ export const WelcomeMessage: React.FC<WelcomeMessageProps> = ({
 
   return (
     <Div>
-      <h2>Bonjour {userMainData.userInfos.firstName}</h2>
-      <h3>Félicitations ! Vous avez explosé vos objectifs hier 👏</h3>
+      <WelcomeHeader>
+        Bonjour <SpanHeader>{userMainData.userInfos.firstName}</SpanHeader>
+      </WelcomeHeader>
+      <CongratulationsHeader>
+        Félicitation ! Vous avez explosé vos objectifs hier 👏
+      </CongratulationsHeader>
     </Div>
   );
 };

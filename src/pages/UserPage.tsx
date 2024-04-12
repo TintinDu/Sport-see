@@ -68,9 +68,10 @@ export function UserPage() {
   }
 
   const Wrapper = styled.div`
+    flex: 1;
     display: flex;
     flex-direction: column;
-    padding: 1em;
+    padding: 1.7em 0.7em;
   `;
 
   return (
