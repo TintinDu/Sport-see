@@ -10,20 +10,22 @@ const Div = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  padding: 0.5em 2.5em;
 `;
 
 const Card = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0.5em;
+  margin: 0.5em 1em;
 `;
 
 const Box = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  background-color: #f3f3f3;
+  background-color: #fbfbfb;
   margin: 0.5em;
+  padding: 1.5em 2em;
 `;
 
 export const UserKeyData = ({
@@ -41,21 +43,21 @@ export const UserKeyData = ({
         </Card>
       </Box>
       <Box>
-        <img src={carbsIcon} alt="icône carbs" />
+        <img src={proteinIcon} alt="icône protéine" />
         <Card>
-          <p>{userKeyData?.carbohydrateCount}g</p>
+          <p>{userKeyData?.proteinCount}g</p>
           <p>Proteines</p>
         </Card>
       </Box>
       <Box>
-        <img src={fatIcon} alt="icône gras" />
+        <img src={carbsIcon} alt="icône carbs" />
         <Card>
-          <p>{userKeyData?.proteinCount}g</p>
+          <p>{userKeyData?.carbohydrateCount}g</p>
           <p>Glucides</p>
         </Card>
       </Box>
       <Box>
-        <img src={proteinIcon} alt="icône protéine" />
+        <img src={fatIcon} alt="icône gras" />
         <Card>
           <p>{userKeyData?.lipidCount}g</p>
           <p>Lipides</p>

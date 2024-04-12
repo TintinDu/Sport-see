@@ -46,8 +46,14 @@ const ChartContainer = styled.div`
   justify-content: space-evenly;
 `;
 
-const KeyDataContainer = styled.div`
+const UserInfosContainer = styled.div`
+  flex: 1;
   display: flex;
+  padding: 3em 0em 0em 6em;
+`;
+
+const Div = styled.div`
+  flex: 1;
 `;
 
 export const UserCharts: React.FC<ChartsProps> = ({
@@ -110,8 +116,8 @@ export const UserCharts: React.FC<ChartsProps> = ({
     getUserScoreFormattedData();
 
   return (
-    <KeyDataContainer>
-      <div>
+    <UserInfosContainer>
+      <Div>
         {userActivityFormattedData && (
           <UserActivityChart data={userActivityFormattedData} />
         )}
@@ -126,8 +132,8 @@ export const UserCharts: React.FC<ChartsProps> = ({
             <UserScoreChart data={userScoreFormattedData} />
           )}
         </ChartContainer>
-      </div>
+      </Div>
       <UserKeyData userKeyData={userKeyData} />
-    </KeyDataContainer>
+    </UserInfosContainer>
   );
 };

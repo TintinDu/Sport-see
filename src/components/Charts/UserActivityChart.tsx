@@ -18,7 +18,7 @@ export function UserActivityChart({
   data: UserActivityFormattedData[];
 }) {
   return (
-    <ResponsiveContainer width="99%" height={400} style={{ padding: "2em" }}>
+    <ResponsiveContainer width="99%" height={320}>
       <BarChart
         data={data}
         margin={{
@@ -35,22 +35,25 @@ export function UserActivityChart({
             }
             return "Données corrompues";
           }}
-          wrapperStyle={{ top: "-35px" }}
+          wrapperStyle={{ top: "-15px" }}
           verticalAlign="top"
           align="right"
         />
         <CartesianGrid strokeDasharray="2 2" />
-        <XAxis dataKey="name" />
+        <XAxis dataKey="name" tickLine={false} axisLine={false} />
         <YAxis
           dataKey="kilograms"
           orientation="right"
           yAxisId="right"
           domain={[60, 70]}
+          tickLine={false}
+          axisLine={false}
         />
         <YAxis
           dataKey="calories"
           orientation="left"
           tick={false}
+          axisLine={false}
           yAxisId="left"
         />
         <Tooltip

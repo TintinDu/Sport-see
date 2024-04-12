@@ -21,12 +21,15 @@ export function UserPerformanceChart({
       <RadarChart
         cx="50%"
         cy="50%"
-        outerRadius="80%"
+        outerRadius="70%"
         data={data}
         margin={{ top: 5, right: 0, bottom: 5, left: 0 }}
       >
         <PolarGrid radialLines={false} />
-        <PolarAngleAxis dataKey="subject" tick={{ fill: "white" }} />
+        <PolarAngleAxis
+          dataKey="subject"
+          tick={{ fill: "white", fontSize: "10px" }}
+        />
         <Radar name="Mike" dataKey="A" fill="#FF0101" fillOpacity={0.6} />
       </RadarChart>
     </ResponsiveContainer>
