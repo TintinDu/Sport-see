@@ -28,6 +28,12 @@ const Box = styled.div`
   padding: 1.5em 2em;
 `;
 
+const KeyDataTypo = styled.p`
+  color: grey;
+  font-size: 0.8em;
+  margin-top: 0.5em;
+`;
+
 export const UserKeyData = ({
   userKeyData,
 }: {
@@ -39,28 +45,28 @@ export const UserKeyData = ({
         <img src={caloriesIcon} alt="icône calories" />
         <Card>
           <p>{userKeyData?.calorieCount}kCal</p>
-          <p>Calories</p>
+          <KeyDataTypo>Calories</KeyDataTypo>
         </Card>
       </Box>
       <Box>
         <img src={proteinIcon} alt="icône protéine" />
         <Card>
           <p>{userKeyData?.proteinCount}g</p>
-          <p>Proteines</p>
+          <KeyDataTypo>Proteines</KeyDataTypo>
         </Card>
       </Box>
       <Box>
         <img src={carbsIcon} alt="icône carbs" />
         <Card>
           <p>{userKeyData?.carbohydrateCount}g</p>
-          <p>Glucides</p>
+          <KeyDataTypo>Glucides</KeyDataTypo>
         </Card>
       </Box>
       <Box>
         <img src={fatIcon} alt="icône gras" />
         <Card>
           <p>{userKeyData?.lipidCount}g</p>
-          <p>Lipides</p>
+          <KeyDataTypo>Lipides</KeyDataTypo>
         </Card>
       </Box>
     </Div>
