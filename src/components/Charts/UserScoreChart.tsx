@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Cell,
   Legend,
@@ -14,9 +14,16 @@ interface CustomLabelProps {
     cy: number;
   };
   value: number;
+  fontSizeStatic: number;
+  fontSizeScore: number;
 }
 
-const CustomLabel: React.FC<CustomLabelProps> = ({ viewBox, value }) => {
+const CustomLabel: React.FC<CustomLabelProps> = ({
+  viewBox,
+  value,
+  fontSizeStatic,
+  fontSizeScore,
+}) => {
   const { cx, cy } = viewBox;
   return (
     <text
@@ -24,7 +31,7 @@ const CustomLabel: React.FC<CustomLabelProps> = ({ viewBox, value }) => {
       y={cy}
       textAnchor="middle"
       alignmentBaseline="middle"
-      style={{ fontSize: 22, fill: "black" }}
+      style={{ fontSize: fontSizeScore }}
     >
       <tspan>{`${value}%`}</tspan>
       {"\n"}
@@ -32,7 +39,7 @@ const CustomLabel: React.FC<CustomLabelProps> = ({ viewBox, value }) => {
         x={cx}
         dy={25}
         textAnchor="middle"
-        style={{ fontSize: 18, fill: "#74798c" }}
+        style={{ fontSize: fontSizeStatic, fill: "#74798c" }}
       >
         de votre{"\n"}objectif
       </tspan>
@@ -41,12 +48,36 @@ const CustomLabel: React.FC<CustomLabelProps> = ({ viewBox, value }) => {
 };
 
 export function UserScoreChart({ data }: { data: UserScoreFormattedData[] }) {
+  const [containerHeight, setContainerHeight] = useState(260);
+
+  const [fontSizeStatic, setFontSizeStatic] = useState(10);
+  const [fontSizeScore, setFontSizeScore] = useState(10);
+
+  useEffect(() => {
+    function updateDimensions() {
+      const newHeight = window.innerWidth <= 1024 ? 180 : 260;
+      const newFontSizeScore = window.innerWidth <= 1024 ? 18 : 22;
+      const newFontSizeStatic = window.innerWidth <= 1024 ? 14 : 18;
+      setFontSizeScore(newFontSizeScore);
+      setFontSizeStatic(newFontSizeStatic);
+      setContainerHeight(newHeight);
+    }
+
+    updateDimensions();
+
+    window.addEventListener("resize", updateDimensions);
+
+    return () => {
+      window.removeEventListener("resize", updateDimensions);
+    };
+  }, []);
+
   return (
-    <ResponsiveContainer width="99%" height={260}>
+    <ResponsiveContainer width="99%" height={containerHeight}>
       <RadialBarChart
         cx="50%"
         cy="50%"
-        innerRadius="100%"
+        innerRadius="80%"
         outerRadius="100%"
         barSize={10}
         data={data}
@@ -54,7 +85,7 @@ export function UserScoreChart({ data }: { data: UserScoreFormattedData[] }) {
         endAngle={370}
       >
         <Legend
-          wrapperStyle={{ padding: "1em" }}
+          wrapperStyle={{ padding: "0.5em", fontWeight: 500 }}
           content={() => "Score"}
           verticalAlign="top"
         />
@@ -70,7 +101,12 @@ export function UserScoreChart({ data }: { data: UserScoreFormattedData[] }) {
         </RadialBar>
         <RadialBar
           label={({ viewBox, value }) => (
-            <CustomLabel viewBox={viewBox} value={value} />
+            <CustomLabel
+              viewBox={viewBox}
+              value={value}
+              fontSizeStatic={fontSizeStatic}
+              fontSizeScore={fontSizeScore}
+            />
           )}
           dataKey="value"
           startAngle={90}

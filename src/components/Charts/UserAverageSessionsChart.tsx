@@ -8,6 +8,7 @@ import {
 } from "recharts";
 import { UserAverageSessionsFormattedData } from "./UserCharts";
 import styled from "styled-components";
+import { useEffect, useState } from "react";
 
 export function UserAverageSessionsChart({
   data,
@@ -17,7 +18,7 @@ export function UserAverageSessionsChart({
   const AverageSessionsChartHeader = styled.h3`
     color: #ffffff;
     opacity: 0.5;
-    font-size: 15px;
+    font-size: 12px;
     font-weight: 400;
     padding: 1em 2em;
     width: 80%;
@@ -33,10 +34,31 @@ export function UserAverageSessionsChart({
     font-size: 10px;
   `;
 
+  const [containerHeight, setContainerHeight] = useState(260);
+
+  const [fontSize, setFontSize] = useState(10);
+
+  useEffect(() => {
+    function updateDimensions() {
+      const newHeight = window.innerWidth <= 1024 ? 180 : 260;
+      const newFontSize = window.innerWidth <= 1024 ? 8 : 10;
+      setFontSize(newFontSize);
+      setContainerHeight(newHeight);
+    }
+
+    updateDimensions();
+
+    window.addEventListener("resize", updateDimensions);
+
+    return () => {
+      window.removeEventListener("resize", updateDimensions);
+    };
+  }, []);
+
   return (
     <ResponsiveContainer
       width="99%"
-      height={260}
+      height={containerHeight}
       style={{ backgroundColor: "red", borderRadius: "5px" }}
     >
       <LineChart
@@ -68,7 +90,7 @@ export function UserAverageSessionsChart({
           contentStyle={{
             backgroundColor: "#fff",
             textAlign: "center",
-            fontSize: "10px",
+            fontSize: `${fontSize}px`,
           }}
           content={({ payload }) => {
             if (payload) {
@@ -84,7 +106,6 @@ export function UserAverageSessionsChart({
             stroke: "black",
             strokeOpacity: 0.2,
             strokeWidth: 120,
-            style: { height: 100000 },
           }}
         />
         <Line
