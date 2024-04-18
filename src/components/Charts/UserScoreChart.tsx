@@ -16,6 +16,7 @@ interface CustomLabelProps {
   value: number;
   fontSizeStatic: number;
   fontSizeScore: number;
+  radius: number;
 }
 
 const CustomLabel: React.FC<CustomLabelProps> = ({
@@ -23,42 +24,48 @@ const CustomLabel: React.FC<CustomLabelProps> = ({
   value,
   fontSizeStatic,
   fontSizeScore,
+  radius,
 }) => {
   const { cx, cy } = viewBox;
   return (
-    <text
-      x={cx}
-      y={cy}
-      textAnchor="middle"
-      alignmentBaseline="middle"
-      style={{ fontSize: fontSizeScore }}
-    >
-      <tspan>{`${value}%`}</tspan>
-      {"\n"}
-      <tspan
+    <g>
+      <circle cx={cx} cy={cy} r={radius} fill="white" />
+      <text
         x={cx}
-        dy={25}
+        y={cy}
         textAnchor="middle"
-        style={{ fontSize: fontSizeStatic, fill: "#74798c" }}
+        alignmentBaseline="middle"
+        style={{ fontSize: fontSizeScore }}
       >
-        de votre{"\n"}objectif
-      </tspan>
-    </text>
+        <tspan>{`${value}%`}</tspan>
+        {"\n"}
+        <tspan
+          x={cx}
+          dy={25}
+          textAnchor="middle"
+          style={{ fontSize: fontSizeStatic, fill: "#74798c" }}
+        >
+          de votre{"\n"}objectif
+        </tspan>
+      </text>
+    </g>
   );
 };
 
 export function UserScoreChart({ data }: { data: UserScoreFormattedData[] }) {
   const [containerHeight, setContainerHeight] = useState(260);
-
+  const [radius, setRadius] = useState(85);
   const [fontSizeStatic, setFontSizeStatic] = useState(10);
   const [fontSizeScore, setFontSizeScore] = useState(10);
 
   useEffect(() => {
     function updateDimensions() {
       const newHeight = window.innerWidth <= 1024 ? 180 : 260;
+      const newRadius = window.innerWidth <= 1024 ? 45 : 85;
       const newFontSizeScore = window.innerWidth <= 1024 ? 18 : 22;
-      const newFontSizeStatic = window.innerWidth <= 1024 ? 14 : 18;
+      const newFontSizeStatic = window.innerWidth <= 1024 ? 11 : 18;
       setFontSizeScore(newFontSizeScore);
+      setRadius(newRadius);
       setFontSizeStatic(newFontSizeStatic);
       setContainerHeight(newHeight);
     }
@@ -89,16 +96,13 @@ export function UserScoreChart({ data }: { data: UserScoreFormattedData[] }) {
           content={() => "Score"}
           verticalAlign="top"
         />
-
         <RadialBar
           data={[{ value: 100 }]}
           dataKey=""
           cornerRadius={10}
           startAngle={90}
           endAngle={(360 * data[0].value) / 100 + 90}
-        >
-          <Cell fill={"grey"} />
-        </RadialBar>
+        />
         <RadialBar
           label={({ viewBox, value }) => (
             <CustomLabel
@@ -106,6 +110,7 @@ export function UserScoreChart({ data }: { data: UserScoreFormattedData[] }) {
               value={value}
               fontSizeStatic={fontSizeStatic}
               fontSizeScore={fontSizeScore}
+              radius={radius}
             />
           )}
           dataKey="value"

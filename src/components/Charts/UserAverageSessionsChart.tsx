@@ -1,4 +1,5 @@
 import {
+  Customized,
   Legend,
   Line,
   LineChart,
@@ -6,9 +7,11 @@ import {
   Tooltip,
   XAxis,
 } from "recharts";
+import {} from "react";
+
 import { UserAverageSessionsFormattedData } from "./UserCharts";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 export function UserAverageSessionsChart({
   data,
@@ -37,13 +40,20 @@ export function UserAverageSessionsChart({
   const [containerHeight, setContainerHeight] = useState(260);
 
   const [fontSize, setFontSize] = useState(10);
+  const [rectSize, setRectSize] = useState(130);
+  const [cursorPos, setCursorPos] = useState<{ x: number; y: number } | null>(
+    null,
+  );
+  const chartRef = useRef(null);
 
   useEffect(() => {
     function updateDimensions() {
       const newHeight = window.innerWidth <= 1024 ? 180 : 260;
       const newFontSize = window.innerWidth <= 1024 ? 8 : 10;
+      const newRectSize = window.innerWidth <= 1024 ? 100 : 130;
       setFontSize(newFontSize);
       setContainerHeight(newHeight);
+      setRectSize(newRectSize);
     }
 
     updateDimensions();
@@ -59,7 +69,12 @@ export function UserAverageSessionsChart({
     <ResponsiveContainer
       width="99%"
       height={containerHeight}
-      style={{ backgroundColor: "red", borderRadius: "5px" }}
+      style={{
+        backgroundColor: "red",
+        borderRadius: "5px",
+        position: "relative",
+      }}
+      ref={chartRef}
     >
       <LineChart
         data={data}
@@ -68,17 +83,6 @@ export function UserAverageSessionsChart({
           bottom: 10,
         }}
       >
-        <Legend
-          wrapperStyle={{ width: "75%" }}
-          content={() => {
-            return (
-              <AverageSessionsChartHeader>
-                Durée moyenne des sessions
-              </AverageSessionsChartHeader>
-            );
-          }}
-          verticalAlign="top"
-        />
         <XAxis
           dataKey="name"
           tick={{ fill: "#FFF", opacity: 0.5 }}
@@ -92,21 +96,18 @@ export function UserAverageSessionsChart({
             textAlign: "center",
             fontSize: `${fontSize}px`,
           }}
-          content={({ payload }) => {
-            if (payload) {
+          content={({ active, payload, coordinate }) => {
+            if (active && payload && coordinate) {
+              setCursorPos({ x: coordinate?.x || 0, y: coordinate?.y || 0 });
               return (
                 <WhiteTooltip>
                   <ToolTipContent>{payload[0]?.value} min</ToolTipContent>
                 </WhiteTooltip>
               );
             }
-            return "Données corrompues";
+            return null;
           }}
-          cursor={{
-            stroke: "black",
-            strokeOpacity: 0.2,
-            strokeWidth: 120,
-          }}
+          cursor={false}
         />
         <Line
           dot={false}
@@ -116,6 +117,35 @@ export function UserAverageSessionsChart({
           strokeWidth={2}
           opacity={0.5}
         />
+        <Legend
+          wrapperStyle={{ width: "75%" }}
+          content={() => {
+            return (
+              <AverageSessionsChartHeader>
+                Durée moyenne des sessions
+              </AverageSessionsChartHeader>
+            );
+          }}
+          verticalAlign="top"
+        />
+        {cursorPos &&
+        chartRef.current &&
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (chartRef.current as any)?.clientHeight ? (
+          <Customized
+            component={() => (
+              <rect
+                x={cursorPos.x}
+                y={0}
+                width={rectSize}
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                height={(chartRef.current as any)?.clientHeight}
+                fill="black"
+                fillOpacity={0.2}
+              />
+            )}
+          />
+        ) : null}
       </LineChart>
     </ResponsiveContainer>
   );
