@@ -21,12 +21,18 @@ const LogosContainer = styled.div`
 
 const Div = styled.div`
   margin: 1em auto;
+  @media (max-width: 1440px) {
+    margin: 0.5em auto;
+  }
 `;
 
 const Copiryght = styled.p`
   transform: rotate(270deg);
   white-space: nowrap;
   width: 1em;
+  @media (max-width: 1440px) {
+    font-size: 0.8em;
+  }
 `;
 
 export const SideBar = () => (
