@@ -20,6 +20,9 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 1.7em 0.7em;
+  @media (max-width: 1440px) {
+    padding: 1.2em 0.7em;
+  }
 `;
 
 export function UserPage() {

@@ -50,6 +50,9 @@ const UserInfosContainer = styled.div`
   flex: 1;
   display: flex;
   padding: 3em 0em 0em 6em;
+  @media (max-width: 1440px) {
+    padding: unset;
+  }
 `;
 
 const Div = styled.div`

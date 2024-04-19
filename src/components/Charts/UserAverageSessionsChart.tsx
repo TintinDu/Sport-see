@@ -40,7 +40,6 @@ export function UserAverageSessionsChart({
   const [containerHeight, setContainerHeight] = useState(260);
 
   const [fontSize, setFontSize] = useState(10);
-  const [rectSize, setRectSize] = useState(130);
   const [cursorPos, setCursorPos] = useState<{ x: number; y: number } | null>(
     null,
   );
@@ -50,10 +49,8 @@ export function UserAverageSessionsChart({
     function updateDimensions() {
       const newHeight = window.innerWidth <= 1024 ? 180 : 260;
       const newFontSize = window.innerWidth <= 1024 ? 8 : 10;
-      const newRectSize = window.innerWidth <= 1024 ? 100 : 130;
       setFontSize(newFontSize);
       setContainerHeight(newHeight);
-      setRectSize(newRectSize);
     }
 
     updateDimensions();
@@ -137,7 +134,7 @@ export function UserAverageSessionsChart({
               <rect
                 x={cursorPos.x}
                 y={0}
-                width={rectSize}
+                width={"100%"}
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 height={(chartRef.current as any)?.clientHeight}
                 fill="black"

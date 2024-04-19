@@ -11,6 +11,9 @@ const Div = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0.5em 2.5em;
+  @media (max-width: 1440px) {
+    padding: 0.5em;
+  }
 `;
 
 const Card = styled.div`
