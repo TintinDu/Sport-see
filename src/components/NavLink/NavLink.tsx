@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const NavLinkDiv = styled.div`
-  margin: 1.5em 4em;
+  margin: 1.5em 2.5em;
   font-size: 1.4em;
 `;
 
