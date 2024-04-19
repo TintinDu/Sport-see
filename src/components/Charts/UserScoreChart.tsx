@@ -98,10 +98,11 @@ export function UserScoreChart({ data }: { data: UserScoreFormattedData[] }) {
         />
         <RadialBar
           data={[{ value: 100 }]}
-          dataKey=""
+          dataKey="value"
           cornerRadius={10}
           startAngle={90}
-          endAngle={(360 * data[0].value) / 100 + 90}
+          endAngle={450}
+          fill="white"
         />
         <RadialBar
           label={({ viewBox, value }) => (

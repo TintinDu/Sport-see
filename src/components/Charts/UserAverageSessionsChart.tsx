@@ -13,30 +13,30 @@ import { UserAverageSessionsFormattedData } from "./UserCharts";
 import styled from "styled-components";
 import { useEffect, useState, useRef } from "react";
 
+const AverageSessionsChartHeader = styled.h3`
+  color: #ffffff;
+  opacity: 0.5;
+  font-size: 12px;
+  font-weight: 400;
+  padding: 1em 2em;
+  width: 80%;
+`;
+
+const WhiteTooltip = styled.div`
+  background-color: #ffffff;
+`;
+
+const ToolTipContent = styled.p`
+  color: #000;
+  padding: 0.5em;
+  font-size: 10px;
+`;
+
 export function UserAverageSessionsChart({
   data,
 }: {
   data: UserAverageSessionsFormattedData[];
 }) {
-  const AverageSessionsChartHeader = styled.h3`
-    color: #ffffff;
-    opacity: 0.5;
-    font-size: 12px;
-    font-weight: 400;
-    padding: 1em 2em;
-    width: 80%;
-  `;
-
-  const WhiteTooltip = styled.div`
-    background-color: #ffffff;
-  `;
-
-  const ToolTipContent = styled.p`
-    color: #000;
-    padding: 0.5em;
-    font-size: 10px;
-  `;
-
   const [containerHeight, setContainerHeight] = useState(260);
 
   const [fontSize, setFontSize] = useState(10);

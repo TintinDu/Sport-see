@@ -15,10 +15,16 @@ import { UserActivityType } from "../models/UserActivity/UserActivityType";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
+const Wrapper = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1.7em 0.7em;
+`;
+
 export function UserPage() {
   const { id } = useParams();
   const userId = parseInt(id!);
-
   const [userData, setUserData] = useState<UserMainDataType | null>(null);
   const [userPerformance, setUserPerformance] =
     useState<UserPerformanceType | null>(null);
@@ -66,13 +72,6 @@ export function UserPage() {
       </>
     );
   }
-
-  const Wrapper = styled.div`
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 1.7em 0.7em;
-  `;
 
   return (
     <>
